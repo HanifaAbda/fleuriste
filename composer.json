@@ -1,0 +1,16 @@
+{
+    "name": "hb/fleuriste",
+    "description": "\"Projet fleuriste\"",
+    "autoload": {
+        "psr-4": {
+            "Hb\\Fleuriste\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "HanifaAbda",
+            "email": "hanifabda2@gmail.com"
+        }
+    ],
+    "require": {}
+}
