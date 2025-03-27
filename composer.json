@@ -3,7 +3,7 @@
     "description": "\"Projet fleuriste\"",
     "autoload": {
         "psr-4": {
-            "Hb\\Fleuriste\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [
