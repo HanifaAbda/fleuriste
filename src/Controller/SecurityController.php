@@ -83,8 +83,8 @@ class SecurityController
 
                     $_SESSION["username"] = $user->getUsername();
 
-                    $indexController = new IndexController();
-                    $indexController->homePage();                }
+                    $HomeController = new HomeController();
+                    $HomeController->homePage();                }
             }
         }
         require_once("./templates/register.php");
@@ -92,8 +92,8 @@ class SecurityController
 
     public function logout(){
         unset($_SESSION["username"]);    
-        $indexController = new IndexController();
-        $indexController->homePage();
+        $HomeController = new HomeController();
+        $HomeController->homePage();
     }
 
 }

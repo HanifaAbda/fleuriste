@@ -1,6 +1,7 @@
 <?php
 $title = "Connexion";
 require_once("block/header.php");
+
 ?>
 <h1>Login</h1>
 <form method="POST" action="index.php?action=login">
@@ -30,3 +31,4 @@ require_once("block/header.php");
 
 <?php
 require_once("block/footer.php");
+?>

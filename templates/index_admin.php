@@ -1,6 +1,10 @@
 <?php
-$title = "Administration Garage";
+
+
+$title = "Administration Fleuriste";
 require_once("block/header.php");
+
+
 ?>
 
 <div class="container mt-4">
@@ -14,12 +18,12 @@ require_once("block/header.php");
         <?php foreach ($products as $product): ?>
             <div class="col-md-4 mb-4 col-sm-6">
                 <div class="card shadow-sm">
-                    <img src="images/<?= $product->getImage() ?>" 
+                    <img src="http://localhost/fleuriste/images/<?= $product->getDescription() ?>" 
                          alt="<?= $product->getName() ?>" 
                          class="card-img-top img-fluid rounded col-md-4 col-sm-6" style="height: 200px; width: auto;">                    
                     <div class="card-body">
                         <h5 class="card-title"><?= $product->getName() ?></h5>
-                        <p class="card-text"><?= $product->getCategory() ?> - <?= $car->getPrice() ?> chevaux</p>
+                        <p class="card-text"><?= $product->getCategory() ?> - <?= $product->getPrice() ?> prix</p>
                         <div class="d-flex justify-content-between">
                             <a class="btn btn-primary" href="index.php?action=edit&id=<?= $product->getId() ?>">Modifier</a>
                             <a class="btn btn-danger" href="index.php?action=delete&id=<?= $product->getId() ?>">Supprimer</a>
@@ -33,3 +37,4 @@ require_once("block/header.php");
 
 <?php
 require_once("block/footer.php");
+?>

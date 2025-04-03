@@ -2,18 +2,19 @@
 namespace App\Manager;
 
 use App\Model\Product;
+use App\Manager\DatabaseManager;
 /**
- * CarManager
- * Représente un gestionnaire de la table Car
- * Contient les méthodes et requêtes pour la table Car
+ * ProductManager
+ * Représente un gestionnaire de la table Product
+ * Contient les méthodes et requêtes pour la table Product
  * Hérite de DatabaseManager, donc accès à la connexion PDO
  * via la méthode héritée statique getConnexion()
  */
 class ProductManager extends DatabaseManager
 {
     /**
-     * Récupère toutes les lignes de la table Car
-     * @return array Tableau d'instances Car.
+     * Récupère toutes les lignes de la table Product
+     * @return array Tableau d'instances Product.
      */
     public function selectAll(): array
     {
@@ -22,12 +23,12 @@ class ProductManager extends DatabaseManager
         $requete->execute();
 
         $arrayProducts = $requete->fetchAll();
-        //Créer un tableau qui contiendra les objets Car
+        //Créer un tableau qui contiendra les objets product
         $products = [];
-        //Boucle sur le tableau $arrayCars pour créer les objets Car 
-        // Chaque élément du tableau $arrayCar est un tableau associatif
+        //Boucle sur le tableau $arrayProducts pour créer les objets product 
+        // Chaque élément du tableau $arrayProduct est un tableau associatif
         foreach ($arrayProducts as $arrayProduct) {
-            //Istantiation d'un objet Car avec les données du tableau associatif  
+            //Istantiation d'un objet Product avec les données du tableau associatif  
             $products[] = new Product($arrayProduct["id"], $arrayProduct["name"], $arrayProduct["category"], $arrayProduct["price"], $arrayProduct["image"], $arrayProduct["description"]);
         }
 
@@ -35,7 +36,7 @@ class ProductManager extends DatabaseManager
     }
 
     /**
-     * Récupère une ligne de la table Car par ID
+     * Récupère une ligne de la table Product par ID
      * @param  int $id
      * @return Product
      */
@@ -53,19 +54,19 @@ class ProductManager extends DatabaseManager
 
             return false;
         }
-        //Renvoyer l'instance d'un objet Car avec les données du tableau associatif
-        return new Product($arrayProduct["id"], $arrayProduct["name"], $arrayProduct["category"], $arrayProduct["price"], $arrayProduct["image"], $arrayProduct["description"]);
+        //Renvoyer l'instance d'un objet Product avec les données du tableau associatif
+        return new Product($arrayProduct["id"], $arrayProduct["name"], $arrayProduct["category"], $arrayProduct["price"], $arrayProduct["description"], $arrayProduct["image"] );
     }
 
     /**
-     * insertCar
+     * insertProduct
      *
      * @param  Product $product
      * @return bool
      */
-    public function insert(product $product): bool
+    public function insert(Product $product): bool
     {
-        $requete = self::getConnexion()->prepare("INSERT INTO product (name,category,price,description,image,) VALUES (:name,:category,:price,:decription,:image);");
+        $requete = self::getConnexion()->prepare("INSERT INTO product (id,name,category,price,description,image) VALUES (:name,:category,:price,:decription,:image);");
 
         $requete->execute([
             ":name" => $product->getName(),
@@ -81,7 +82,7 @@ class ProductManager extends DatabaseManager
     /**
      * updateCarByID
      *
-     * @param  Product $car
+     * @param  Product $product
      * @return bool
      */
     public function update(Product $product): bool
@@ -89,12 +90,13 @@ class ProductManager extends DatabaseManager
         $requete = self::getConnexion()->prepare("UPDATE product SET name = :name, category = :category, price = :price, description = :description, image = :image WHERE id = :id;");
         $requete->execute(
             [
+                ":id" => $product->getId(),
                 ":name" => $product->getName(),
-                ":brand" => $product->getCategory(),
-                ":horsePower" => $product->getPrice(),
+                ":category" => $product->getCategory(),
+                ":price" => $product->getPrice(),
                 ":description" => $product->getDescription(),
                 ":image" => $product->getImage(),
-                ":id" => $product->getId()
+                
             ]
         );
 
@@ -102,7 +104,7 @@ class ProductManager extends DatabaseManager
     }
 
     /**
-     * deleteCarByID
+     * deleteProductByID
      *
      * @param  int $id
      * @return bool
@@ -117,3 +119,4 @@ class ProductManager extends DatabaseManager
         return $requete->rowCount() > 0;
     }
 }
+?>
